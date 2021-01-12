@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+  <!-- Page Content -->
+  <div class="container">
+
+    <h1 class="content-title my-4 text-center">Welcome to Online Retail Store</h1>
+
+    <!-- Portfolio Section -->
+
+    <div class="row">
+      {{#each items}}
+      <div class="col-lg-4 mb-4" id="{{this.dataValues.id}}">
+        <div class="card h-100 text-center">
+          <img class="card-img-top" height="250"src="images/officers/officerplaceholder.png">
+          <!-- <img class="card-img-top" height="250"src={{this.dataValues.profile_pic}}> -->
+          <div class="card-body">
+            <h4 class="card-title">{{this.dataValues.name}}</h4>
+            <h6 class="card-subtitle mb-2 text-muted">{{this.dataValues.cost}}</h6>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary" type="submit" onclick="add_to_cart(this)">Add Item</button>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+
+  </div>
+  <!-- /.container -->
+
+<script>
+  function add_to_cart(element) {
+    row = element.parentNode.parentNode.parentNode
+    item_id = row.id
+    status = "active"
+    cust_id = 
+    const data = {item_id, status, };
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    };
+    fetch('/landing/add', options);
+    return false
+  }
+</script>
