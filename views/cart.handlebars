@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+  <!-- Page Content -->
+  <div class="container">
+
+    <h1 class="content-title my-4 text-center">Items in your cart</h1>
+
+    <!-- Portfolio Section -->
+
+    <div class="row">
+      {{#each cart}}
+      <div class="col-lg-4 mb-4" id="{{this.dataValues.id}}">
+        <div class="card h-100 text-center">
+          <img class="card-img-top" height="250"src="images/officers/officerplaceholder.png">
+          <!-- <img class="card-img-top" height="250"src={{this.dataValues.profile_pic}}> -->
+          <div class="card-body">
+            <h4 class="card-title">{{this.dataValues.name}}</h4>
+            <h6 class="card-subtitle mb-2 text-muted">{{this.dataValues.cost}}</h6>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+      {{#if auth}}
+      <button class="btn btn-primary" type="submit" onclick="buy_now(this)">Buy Now</button>
+      {{else}}
+      <h4>Please sign in to buy items</h4>
+      {{/if}}
+    </div>
+
+  </div>
+  <!-- /.container -->
+
+<script>
+  function buy_now(element) {
+    const data = {};
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    };
+    fetch('/landing/update', options);
+    return false
+  }
+</script>

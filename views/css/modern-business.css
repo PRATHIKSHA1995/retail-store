@@ -1,0 +1,196 @@
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100%;
+  width: 100%;
+
+  padding-top: 56px;
+  margin: 0;
+}
+
+.mainbody {
+  flex: 1 0 auto;
+}
+
+.profile-dropdown {
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 30px;
+  height: auto;
+}
+
+.carousel-item {
+  height: 65vh;
+  min-height: 300px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.portfolio-item {
+  margin-bottom: 30px;
+}
+
+.navbar {
+    background-color: #632927;
+}
+
+.card-title {
+  color: #632927;
+  margin-bottom: 0.75rem;
+}
+
+.carousel-img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#scroll {
+  overflow-y: scroll;
+  max-height: 700px;
+}
+
+::-webkit-scrollbar {
+    display: none
+}
+
+.content-title
+{
+    color: #632927;
+    text-decoration: underline;
+}
+
+.show-scroll::-webkit-scrollbar {
+    width: 10px;
+    display: inline
+}
+
+.show-scroll::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+.show-scroll::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #632927;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+.login {
+    float: right
+}
+
+
+.card-img-top {
+    width: 100%;
+    height: 12vw;
+    object-fit: cover;
+}
+
+.btn-primary {
+    background-color: #632927 !important;
+    border-color: grey !important;
+}
+
+.table-wrapper {
+  width: 700px;
+  margin: 30px auto;
+  background: #fff;
+  padding: 20px;	
+  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.table-title .add-new {
+  float: right;
+  height: 30px;
+  font-weight: bold;
+  font-size: 12px;
+  text-shadow: none;
+  min-width: 100px;
+  border-radius: 50px;
+  line-height: 13px;
+}
+.table-title .add-new i {
+  margin-right: 4px;
+}
+table.table {
+  table-layout: fixed;
+}
+table.table tr th, table.table tr td {
+  border-color: #e9e9e9;
+}
+table.table th i {
+  font-size: 13px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+table.table th:last-child {
+  width: 100px;
+}
+table.table td a {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 5px;
+  min-width: 24px;
+}    
+table.table td a.add {
+  color: #27C46B;
+}
+table.table td a.edit {
+  color: #FFC107;
+}
+table.table td a.delete_icon {
+  color: #E34724;
+}
+table.table td i {
+  font-size: 19px;
+}
+table.table td a.add i {
+  font-size: 24px;
+  margin-right: -1px;
+  position: relative;
+  top: 3px;
+}    
+table.table .form-control {
+  height: 32px;
+  line-height: 32px;
+  box-shadow: none;
+  border-radius: 2px;
+}
+table.table .form-control.error {
+  border-color: #f50000;
+}
+table.table td .add {
+  display: none;
+}
+
+footer {
+  position: relative;
+  /*margin-top: -150px;  negative value of footer height */
+  bottom: 0;
+  clear:both;
+  width: 100%;
+  height: 120px;
+  padding-top:20px;
+}
+
+.grey-bg {
+    background-color: #F5F7FA;
+}
+
+a.custom-card,
+a.custom-card:hover {
+  color: inherit;
+  text-decoration: none;
+
+}
