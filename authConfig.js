@@ -1,6 +1,6 @@
 function checkAuth(req, res, next){
     if (req.isAuthenticated()){
-        return res.redirect("/profile");
+        return res.redirect("/home");
     }
     next();
 }

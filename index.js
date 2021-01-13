@@ -27,7 +27,7 @@ app.set('view engine', 'handlebars');
 const db = require('./models/index.js')
 const Op = Sequelize.Op
 
-var helpers = require('handlebars-helpers')();
+// var helpers = require('handlebars-helpers')();
 
 /*User Passport*/
 app.use(express.urlencoded({ extended: false }));
@@ -46,8 +46,8 @@ app.use(flash());
 
 //app.use(express.static(path.join(__dirname, 'views')));
 app.use('/css', express.static(path.join(__dirname, 'views/css')));
-app.use('/mail', express.static(path.join(__dirname, 'views/mail')));
-app.use('/vendor', express.static(path.join(__dirname, 'views/vendor')));
+// app.use('/mail', express.static(path.join(__dirname, 'views/mail')));
+// app.use('/vendor', express.static(path.join(__dirname, 'views/vendor')));
 app.use('/images', express.static(path.join(__dirname, 'views/images')));
 app.use(require('./routes/index.js'));
 

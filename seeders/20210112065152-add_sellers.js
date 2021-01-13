@@ -5,12 +5,15 @@ module.exports = {
     return queryInterface.bulkInsert('sellers', [
       {
         'name': 'Ranga Stores',
+        'address': "647, Friend's Colony, 2nd Cross, BHCS Layout, Uttarahalli, Bengaluru-560061"
       },
       {
         'name': 'Anna Stores',
+        'address': "331, 2nd Cross, 3rd Stage, RR Nagar, Bengaluru-560098"
       },
       {
-        'name': 'Ammu Stores',
+        'name': 'Amma Stores',
+        'address': "110, 3rd Cros, 5th Main, HSR Layout, Bengaluru-560034"
       },
     ], {})
   },

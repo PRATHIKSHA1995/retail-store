@@ -4,33 +4,47 @@
 
     <h1 class="content-title my-4 text-center">Items in your cart</h1>
 
-    <!-- Portfolio Section -->
-
-    <div class="row">
-      {{#each cart}}
-      <div class="col-lg-4 mb-4" id="{{this.dataValues.id}}">
-        <div class="card h-100 text-center">
-          <img class="card-img-top" height="250"src="images/officers/officerplaceholder.png">
-          <!-- <img class="card-img-top" height="250"src={{this.dataValues.profile_pic}}> -->
-          <div class="card-body">
-            <h4 class="card-title">{{this.dataValues.name}}</h4>
-            <h6 class="card-subtitle mb-2 text-muted">{{this.dataValues.cost}}</h6>
-          </div>
+    <div class="table-responsive">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-8"><h4>Cart Items</h4></div>
+            </div>
         </div>
-      </div>
-      {{/each}}
-      {{#if auth}}
-      <button class="btn btn-primary" type="submit" onclick="buy_now(this)">Buy Now</button>
-      {{else}}
-      <h4>Please sign in to buy items</h4>
-      {{/if}}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each shoppings}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td>{{cost}}</td>
+                </tr>
+                {{/each}}
+                <tr style="font-weight: bold;">
+                    <td>TOTAL</td>
+                    <td>{{sum}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    {{#if auth}}
+    <button class="btn btn-primary" type="submit" onclick="buy_now(this)">Buy Now</button>
+    {{else}}
+    <h4>Please sign in to buy items</h4>
+    {{/if}}
+    <a href="home" class="btn btn-success" role="button">Back to Store</a>
+
 
   </div>
   <!-- /.container -->
 
 <script>
   function buy_now(element) {
+    console.log("Inside Buy");
     const data = {};
     const options = {
         method: 'PUT',
@@ -39,7 +53,8 @@
         },
         body: JSON.stringify(data)
     };
-    fetch('/landing/update', options);
+    fetch('/update', options);
+    location.reload()
     return false
   }
 </script>

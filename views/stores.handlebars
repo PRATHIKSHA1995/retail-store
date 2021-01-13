@@ -1,0 +1,34 @@
+<!-- Populating tables -->
+<div class="tab-content">
+    <!-- items table -->
+    <div id="stores" class="container tab-pane active"><br>
+        <div class="table-responsive">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h2>Our Offline Stores</h2></div>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Map It</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each stores}}
+                    <tr id="{{this.dataValues.id}}">
+                        <td>{{this.dataValues.name}}</td>
+                        <td>{{this.dataValues.address}}</td>                        
+                        <td>
+                            <a href="{{this.dataValues.location}}"><span class="material-icons">language</span></a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

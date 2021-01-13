@@ -1,0 +1,30 @@
+<!-- Populating tables -->
+<div class="tab-content">
+    <!-- Sellers table -->
+    <div id="sellers" class="container tab-pane active"><br>
+        <div class="table-responsive">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h2>Our Partner Sellers</h2></div>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Address</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each sellers}}
+                    <tr id="{{this.dataValues.id}}">
+                        <td>{{this.dataValues.address}}</td>                        
+                        <td>{{this.dataValues.name}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

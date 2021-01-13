@@ -1,39 +1,59 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html> -->
   <!-- Page Content -->
-  <div class="container">
+  <div class="container-fluid">
 
     <h1 class="content-title my-4 text-center">Welcome to Online Retail Store</h1>
 
     <!-- Portfolio Section -->
 
     <div class="row">
-      {{#each items}}
-      <div class="col-lg-4 mb-4" id="{{this.dataValues.id}}">
-        <div class="card h-100 text-center">
-          <img class="card-img-top" height="250"src="images/officers/officerplaceholder.png">
-          <!-- <img class="card-img-top" height="250"src={{this.dataValues.profile_pic}}> -->
-          <div class="card-body">
-            <h4 class="card-title">{{this.dataValues.name}}</h4>
-            <h6 class="card-subtitle mb-2 text-muted">{{this.dataValues.cost}}</h6>
+      <div class="col-lg-8 border-line" >
+        <div class="mt-2 ml-3"><h5>Our Store Items</h5></div>
+        <div class="card-columns">
+        {{#each items}}
+        <!-- <div class="col-lg-2 mb-4" id="{{this.dataValues.id}}"> -->
+
+          <div class="card h-100 text-center" id="{{this.dataValues.id}}">
+            <div class="card-body">
+              <h4 class="card-title">{{this.dataValues.name}}</h4>
+              <h6 class="card-subtitle mb-2 text-muted">{{this.dataValues.cost}}</h6>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-primary" type="submit" onclick="add_to_cart(this)">Add Item</button>
+            </div>
           </div>
-          <div class="card-footer">
-            <button class="btn btn-primary" type="submit" onclick="add_to_cart(this)">Add Item</button>
-          </div>
+        <!-- </div> -->
+        {{/each}}
         </div>
       </div>
-      {{/each}}
-    </div>
 
+      <div class="col-sm-4">
+        <div class="mt-2 ml-1"><h5>Recommendations</h5></div>
+        <div class="card-columns">
+          {{#each recommends}}
+          <div class="card h-100 text-center" id="{{id}}">
+            <div class="card-body">
+              <h4 class="card-title">{{name}}</h4>
+              <h6 class="card-subtitle mb-2 text-muted">{{cost}}</h6>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-primary" type="submit" onclick="add_to_cart(this)">Add Item</button>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+        
+      </div>
+    </div>
   </div>
   <!-- /.container -->
 
 <script>
   function add_to_cart(element) {
-    row = element.parentNode.parentNode.parentNode
+    row = element.parentNode.parentNode
     item_id = row.id
-    status = "active"
-    cust_id = 
-    const data = {item_id, status, };
+    cust_id = {{user.id}}
+    const data = {item_id, cust_id};
     const options = {
         method: 'POST',
         headers: {
@@ -41,7 +61,8 @@
         },
         body: JSON.stringify(data)
     };
-    fetch('/landing/add', options);
+    fetch('/add', options);
     return false
   }
+
 </script>

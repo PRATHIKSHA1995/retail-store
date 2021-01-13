@@ -8,7 +8,7 @@ function initialize(passport) {
             return done(null, false, { message: "Please enter a valid email address" });
         }
         pool.query(
-            `select * from users where email = $1`,
+            `select * from customers where email = $1`,
             [email],
             (err, results) => {
                 if (err) {
@@ -47,7 +47,7 @@ function initialize(passport) {
 
     passport.deserializeUser((id, done) => {
         pool.query(
-            `select * from users where id = $1`,
+            `select * from customers where id = $1`,
             [id],
             (err, results) => {
                 if (err) {

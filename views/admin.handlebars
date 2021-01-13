@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<div class="container">
+    <h1 class="mt-4 mb-3">Admin</h1>
+
+    <!-- Form for editing items -->
+    <div class="modal fade" id="itemsLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Add New Item</h4>
+                    <button type="button" class="close" id='items_x' data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3 font-weight-bold">
+                    <form id="item_submission">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Type something..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Cost</label>
+                            <input type="text" class="form-control" id="cost" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <input type="text" class="form-control" id="category" required>
+                        </div>
+                        <input type="hidden" class="form-control" id="item_db_id">
+                        <button class="btn btn-primary" type="submit" onclick="add_item()" id="submit_button">Post your record</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs for tables -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#items">Items</a>
+        </li>
+    </ul>
+
+    <!-- Populating tables -->
+    <div class="tab-content">
+        <!-- items table -->
+        <div id="items" class="container tab-pane active"><br>
+            <div class="table-responsive">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Items Table</h2></div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary btn-rounded mb-4 add-new" data-toggle="modal" data-target="#itemsLoginForm" id='item_submit'>Add New</button>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Cost</th>
+                            <th>Category</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each items}}
+                        <tr id="{{this.dataValues.id}}">
+                            <td>{{this.dataValues.name}}</td>
+                            <td>{{this.dataValues.cost}}</td>
+                            <td>{{this.dataValues.category}}</td>
+                            <td>
+                                <a class="edit" title="Edit" data-toggle="modal" data-target="#itemsLoginForm" onclick="populate_item(this)"><i class="material-icons">&#xE254;</i></a>
+                                <a class="delete_icon" title="Delete" onclick="delete_item(this)"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    document.getElementById('item_submission').onsubmit= function(e){
+    e.preventDefault();
+    }
+</script>
+
+<script>
+    // Adding or modifying items
+    function add_item() {
+        var name = document.getElementById("name").value
+        var cost = document.getElementById("cost").value
+        var category = document.getElementById("category").value
+        var id = document.getElementById("item_db_id").value
+        // console.log("Inside Handlebars, " + name );
+        if (!name || !cost || !category) {
+            return
+        }
+        if (!id) {
+            const data = {name, cost, category};
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            fetch('/admin/item_add', options);
+        }
+        else {
+            const data = {id, name, cost, category};
+            const options = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            fetch('/admin/item_edit', options);
+        }
+        try {
+            document.getElementById("items_x").click()
+        } catch (err) {
+
+        }
+        location.reload()
+        return false
+    }
+
+
+    // Populating items form for updating
+    function populate_item(element) {
+        row = element.parentNode.parentNode
+        document.getElementById("name").value = row.children[0].innerText
+        document.getElementById("cost").value = row.children[1].innerText
+        document.getElementById("category").value = row.children[2].innerText
+        document.getElementById("item_db_id").value = row.id
+    }
+
+
+    // Deleting an item
+    function delete_item(element) {
+        row = element.parentNode.parentNode
+        id = row.id
+        const data = {id};
+        const options = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        fetch('/admin/item_delete', options);
+        location.reload()
+        return false
+    }
+
+
+</script>

@@ -7,114 +7,44 @@ const db = require('../models/index.js');
 const { checkAuth, checkNotAuth, checkNotAdmin } = require("../authConfig.js");
 
 router.get('/', checkNotAdmin, (req,res) => {
-  var events;
-  var officers;
-  var teams;
-  db.events.findAll({
-    attributes: {exclude: ['createdAt', 'updatedAt']},
-    order: [['event_date', 'DESC']]
-  }).then(events_obj => {
-    admin = false;
-    profile_pic = '';
-    if (req.user) {
-      admin = req.user.role === 'admin';
-      profile_pic = req.user.profile_pic;
-    }
-    events = events_obj;
-  });
-  db.officers.findAll({
-    attributes: {exclude: ['createdAt', 'updatedAt']},
-    order: [['name', 'ASC']]
-  }).then(officers_obj => {
-    admin = false;
-    profile_pic = '';
-    if (req.user) {
-      admin = req.user.role === 'admin';
-      profile_pic = req.user.profile_pic;
-    }
-    officers = officers_obj;
-  });
-  db.teams.findAll({
+  var items;
+
+  db.items.findAll({
     attributes: {exclude: ['createdAt', 'updatedAt']}
-  })
-  .then(teams_obj => {
+    // order: [['item_date', 'DESC']]
+  }).then(items_obj => {
     admin = false;
-    profile_pic = '';
     if (req.user) {
       admin = req.user.role === 'admin';
-      profile_pic = req.user.profile_pic;
     }
-    teams = teams_obj;
-    res.render('admin', { auth: req.isAuthenticated(), admin: admin, profile_pic: profile_pic, events: events, officers: officers, teams: teams });
+    items = items_obj;
+    const sleep = milliseconds => { 
+      return new Promise(resolve => setTimeout(resolve, milliseconds)); 
+    }; 
+     
+    sleep(200).then(() => { 
+      // code to execute after sleep 
+      res.render('admin', { auth: req.isAuthenticated(), admin: admin, items: items });
+    }); 
   });
 });
 
-router.post('/event_add', checkNotAdmin, (req, res) => {
-  db.events.create({
-    event_title: req.body['title'], 
-    event_date: req.body['date_time'], 
-    event_place: req.body['place'], 
-    event_description: req.body['description']
-  })
-  .then( (result) => {
-      res.json(result) 
-  });
-});
-
-router.put('/event_edit', checkNotAdmin, (req, res) => {
-  db.events.update({
-    event_title: req.body['title'], 
-    event_date: req.body['date_time'], 
-    event_place: req.body['place'], 
-    event_description: req.body['description']
-  }, {
-    where: {id: req.body['id']} 
-  })
-  .then( (result) => {
-      res.json(result) 
-  });
-});
-
-router.delete('/event_delete', checkNotAdmin, (req, res) => {
-  db.events.destroy({
-    where: {id: req.body['id']} 
-  })
-  .then( (result) => {
-      res.json(result) 
-  });
-});
-
-router.post('/officer_add', checkNotAdmin, (req, res) => {
-  db.officers.create({
+router.post('/item_add', checkNotAdmin, (req, res) => {
+  db.items.create({
     name: req.body['name'], 
-    about: req.body['about'], 
-    email: req.body['email'], 
-    position: req.body['position']
+    cost: req.body['cost'], 
+    category: req.body['category']
   })
   .then( (result) => {
       res.json(result) 
   });
 });
 
-router.post('/team_add', checkNotAdmin, (req, res) => {
-  db.teams.create({
-    team_name: req.body['team_name'], 
-    member_name1: req.body['member_name1'], 
-    member_name2: req.body['member_name2'], 
-    member_name3: req.body['member_name3'],
-    member_name4: req.body['member_name4']
-  })
-  .then( (result) => {
-      res.json(result) 
-  });
-});
-
-router.put('/officer_edit', checkNotAdmin, (req, res) => {
-  db.officers.update({
+router.put('/item_edit', checkNotAdmin, (req, res) => {
+  db.items.update({
     name: req.body['name'], 
-    about: req.body['about'], 
-    email: req.body['email'], 
-    position: req.body['position']
+    cost: req.body['cost'], 
+    category: req.body['category']
   }, {
     where: {id: req.body['id']} 
   })
@@ -123,14 +53,8 @@ router.put('/officer_edit', checkNotAdmin, (req, res) => {
   });
 });
 
-router.put('/team_edit', checkNotAdmin, (req, res) => {
-  db.teams.update({
-    team_name: req.body['team_name'], 
-    member_name1: req.body['member_name1'], 
-    member_name2: req.body['member_name2'], 
-    member_name3: req.body['member_name3'],
-    member_name4: req.body['member_name4']
-  }, {
+router.delete('/item_delete', checkNotAdmin, (req, res) => {
+  db.items.destroy({
     where: {id: req.body['id']} 
   })
   .then( (result) => {
@@ -138,22 +62,5 @@ router.put('/team_edit', checkNotAdmin, (req, res) => {
   });
 });
 
-router.delete('/officer_delete', checkNotAdmin, (req, res) => {
-  db.officers.destroy({
-    where: {id: req.body['id']} 
-  })
-  .then( (result) => {
-      res.json(result) 
-  });
-});
-
-router.delete('/team_delete', checkNotAdmin, (req, res) => {
-  db.teams.destroy({
-    where: {id: req.body['id']} 
-  })
-  .then( (result) => {
-      res.json(result) 
-  });
-});
 
 module.exports = router
